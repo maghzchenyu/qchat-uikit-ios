@@ -9,7 +9,7 @@ import YXLogin
 import NECoreKit
 import NIMSDK
 import NEQChatUIKit
-import NECoreIMKit
+import NECoreQChatKit
 import NEConversationUIKit
 import NETeamUIKit
 import NEChatUIKit
@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     func setupInit(){
         
-        let account = "<#accid#>"
-        let token = "<#token#>"
+        let account = "chenyu3"
+        let token = "123"
         // init
         let option = NIMSDKOption()
         option.appKey = AppKey.appKey
@@ -50,8 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 print("im login error : ", err)
             }else {
                 ChatRouter.setupInit()
-                let param = QChatLoginParam(account,token)
-                IMKitClient.instance.loginQchat(param) { error, response in
+                let param = QChatLoginParam(account, token)
+                
+                QChatKitClient.instance.loginQChat(param) { error, result in
                     if let err = error {
                         print("qchatLogin failed, error : ", err)
                     }else {
@@ -124,13 +125,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
          */
         
         //呼叫组件初始化
-        let option = NERtcCallOptions()
-        option.apnsCerName = AppKey.pushCerName
-        let uiConfig = NERtcCallUIConfig()
-        uiConfig.option = option
-        uiConfig.appKey = AppKey.appKey
-        uiConfig.uiConfig.showCallingSwitchCallType = option.supportAutoJoinWhenCalled
-        NERtcCallKit.sharedInstance().timeOutSeconds = 30
+        //呼叫组件初始化
+        let setupConfig = NESetupConfig(appkey: AppKey.appKey)
+        NECallEngine.sharedInstance().setup(setupConfig)
+        NECallEngine.sharedInstance().setTimeout(30)
+        
+        let uiConfig = NECallUIKitConfig()
         NERtcCallUIKit.sharedInstance().setup(with: uiConfig)
         
         

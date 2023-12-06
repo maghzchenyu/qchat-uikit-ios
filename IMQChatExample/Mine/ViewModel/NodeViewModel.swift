@@ -5,7 +5,7 @@
 
 import UIKit
 import NETeamUIKit
-
+import NECoreIMKit
 class NodeViewModel: NSObject {
   var sectionData = [SettingSectionModel]()
 
@@ -20,13 +20,13 @@ class NodeViewModel: NSObject {
     home.subTitle = NSLocalizedString("domestic_node", comment: "")
     home.cornerType = .topLeft.union(.topRight)
     home.rowHeight = 44.0
-    home.switchOpen = IMKitClient.instance.repo.getNodeValue() == true ? true : false
+//    home.switchOpen = IMKitClient.instance.repo.getNodeValue() == true ? true : false
 
     // 海外节点配置
     let overseas = SettingCellModel()
     overseas.subTitle = NSLocalizedString("overseas_node", comment: "")
     overseas.cornerType = .bottomLeft.union(.bottomRight)
-    overseas.switchOpen = IMKitClient.instance.repo.getNodeValue() == true ? false : true
+//    overseas.switchOpen = IMKitClient.instance.repo.getNodeValue() == true ? false : true
     overseas.rowHeight = 44.0
 
     model.cellModels.append(contentsOf: [home, overseas])

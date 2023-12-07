@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NEQChatUIKit'
-  s.version          = '9.4.9-alpha01'
+  s.version          = '9.2.10'
   s.summary          = 'Netease XKit'
 
 # This description is used to generate tags and improve search results.
@@ -28,23 +28,19 @@ TODO: Add long description of the pod here.
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64',
       'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
     }
-  
+
   s.ios.deployment_target = '9.0'
   s.swift_version = '5.0'
 
   s.source_files = 'NEQChatUIKit/Classes/**/*'
-  
+
 #  s.resource_bundles = {
 #    'NEQChatUIKit' => ['NEQChatUIKit/Assets/*.png']
 #  }
-  s.resource = 'NEQChatUIKit/Assets/**/*'
-  s.dependency 'NECommonUIKit'
-  s.dependency 'NEQChatKit'
-  s.dependency 'SDWebImageWebPCoder'
-  s.dependency 'SDWebImageSVGKitPlugin'
-  s.dependency 'MJRefresh'
-  s.dependency 'RSKPlaceholderTextView'
-  s.dependency 'NIMSDK_LITE'
-  s.dependency 'YXAlog'
+s.dependency 'NECommonUIKit'
+s.dependency 'NEQChatKit'
+s.dependency 'SDWebImageWebPCoder'
+s.dependency 'SDWebImageSVGKitPlugin'
+s.dependency 'MJRefresh'
 
 end

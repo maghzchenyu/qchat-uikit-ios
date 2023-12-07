@@ -3,19 +3,23 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import UIKit
-import NIMSDK
-import NECoreKit
-import NEQChatUIKit
-import NECoreIMKit
-import NEConversationUIKit
-import NETeamUIKit
 import NEChatUIKit
 import NEContactUIKit
+import NEConversationUIKit
+import NECoreIMKit
+import NECoreKit
+import NECoreQChatKit
+import NEQChatUIKit
+import NETeamUIKit
+import NIMSDK
+import UIKit
 
 class NETabBarController: UITabBarController {
   private var sessionUnreadCount = 0
   private var contactUnreadCount = 0
+  private var serverUnreadCount: UInt = 0
+
+  private var qchatHomeController: QChatHomeViewController?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,13 +43,25 @@ class NETabBarController: UITabBarController {
 
     // qchat
     let qchat = QChatHomeViewController()
-    qchat.view.backgroundColor = UIColor(hexString: "#e9eff5")
+    qchatHomeController = qchat
+    qchat.delegate = self
+    qchat.view.backgroundColor = UIColor(hexString: "#EFF1F4")
     qchat.tabBarItem = UITabBarItem(
       title: NSLocalizedString("qchat", comment: ""),
-      image: UIImage(named: "qchat_tabbar_icon"),
-      selectedImage: UIImage(named: "qchat_tabbar_icon")?.withRenderingMode(.alwaysOriginal)
+      image: UIImage(named: "qchat"),
+      selectedImage: UIImage(named: "qchatSelect")?.withRenderingMode(.alwaysOriginal)
     )
     let qChatNav = NENavigationController(rootViewController: qchat)
+
+    let square = QChatSquareHomeViewController()
+    square.delegate = self
+    square.view.backgroundColor = UIColor(hexString: "#e9eff5")
+    square.tabBarItem = UITabBarItem(
+      title: NSLocalizedString("square", comment: ""),
+      image: UIImage(named: "squareSelect"),
+      selectedImage: UIImage(named: "squareSelect")?.withRenderingMode(.alwaysOriginal)
+    )
+    let squareNav = NENavigationController(rootViewController: square)
 
     // Contacts
     let contactVC = ContactsViewController()
@@ -54,7 +70,11 @@ class NETabBarController: UITabBarController {
       image: UIImage(named: "contact"),
       selectedImage: UIImage(named: "contactSelect")?.withRenderingMode(.alwaysOriginal)
     )
-    contactVC.title = NSLocalizedString("contact", comment: "")
+    let title = UIBarButtonItem(title: NSLocalizedString("contact", comment: ""), style: .plain, target: nil, action: nil)
+    title.isEnabled = false
+    title.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
+                                  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium)], for: .disabled)
+    contactVC.navigationItem.setLeftBarButton(title, animated: false)
     let contactsNav = NENavigationController(rootViewController: contactVC)
 
     // Me
@@ -67,31 +87,50 @@ class NETabBarController: UITabBarController {
     )
     let meNav = NENavigationController(rootViewController: meVC)
 
-    tabBar.backgroundColor = .white
-    viewControllers = [chatNav, qChatNav, contactsNav, meNav]
+    tabBar.isTranslucent = false
+    tabBar.backgroundColor = UIColor(hexString: "#F6F8FA")
+    tabBar.unselectedItemTintColor = UIColor(hexString: "#C5C9D2")
+    viewControllers = [chatNav, qChatNav, squareNav, contactsNav, meNav]
+    viewControllers?.forEach { vc in
+      vc.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(hexString: "#999999")], for: .normal)
+      vc.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(hexString: "#337EFF")], for: .selected)
+    }
     selectedIndex = 0
   }
 
   func setUpSessionBadgeValue() {
     sessionUnreadCount = ConversationProvider.shared.allUnreadCount(notify: true)
     if sessionUnreadCount > 0 {
-      tabBar.showBadgOn(index: 0, tabbarItemNums: 4)
+      tabBar.setRedDotView(index: 0)
     } else {
-      tabBar.hideBadg(on: 0)
+      tabBar.hideRedDocView(index: 0)
     }
   }
 
   func setUpContactBadgeValue() {
     contactUnreadCount = NIMSDK.shared().systemNotificationManager.allUnreadCount()
     if contactUnreadCount > 0 {
-      tabBar.showBadgOn(index: 2, tabbarItemNums: 4)
+      tabBar.setRedDotView(index: 3)
     } else {
-      tabBar.hideBadg(on: 2)
+      tabBar.hideRedDocView(index: 3)
     }
   }
 
   private func refreshSessionBadge() {
     setUpSessionBadgeValue()
+  }
+
+  func setupServerBadge() {
+    if serverUnreadCount > 0 {
+      // tabBar.showBadgOn(index: 1, tabbarItemNums: 5)
+      if serverUnreadCount > 99 {
+        tabBar.setServerBadge(count: "99+")
+      } else {
+        tabBar.setServerBadge(count: "\(serverUnreadCount)")
+      }
+    } else {
+      tabBar.setServerBadge(count: nil)
+    }
   }
 
   deinit {
@@ -118,5 +157,83 @@ extension NETabBarController: NIMSystemNotificationManagerDelegate {
   func onSystemNotificationCountChanged(_ unreadCount: Int) {
     contactUnreadCount = unreadCount
     setUpContactBadgeValue()
+  }
+}
+
+extension NETabBarController: QChatServerDelegate {
+  func serverUnReadTotalCountChange(count: UInt) {
+    serverUnreadCount = count
+    print("serverUnReadTotalCountChange : ", count)
+    setupServerBadge()
+  }
+}
+
+extension NETabBarController: SquareDataSourceDelegate {
+  func requestSquareSearchType(_ completion: @escaping ([QChatSquarePageInfo], NSError?) -> Void) {
+    DemoService.getSearchTypeData { error, result in
+      var infos = [QChatSquarePageInfo]()
+      if let datas = result?.originData?["data"] as? [Any] {
+        datas.forEach { item in
+          let info = QChatSquarePageInfo()
+          if let dic = item as? [String: Any] {
+            if let type = dic["type"] as? Int {
+              info.type = type
+            }
+            if let title = dic["title"] as? String {
+              info.title = title
+            }
+          }
+          infos.append(info)
+        }
+        completion(infos, error as NSError?)
+      } else {
+        completion(infos, error as NSError?)
+      }
+    }
+  }
+
+  func requestServerInfoForSearchType(_ searchType: Int, _ completion: @escaping ([QChatSquareServer], NSError?) -> Void) {
+    DemoService.getSquareData(searchType: searchType) { error, result in
+      print("requestServerInfoForSearchType ", result?.originData as Any)
+      var servers = [QChatSquareServer]()
+
+      if let datas = result?.originData?["data"] as? [Any] {
+        datas.forEach { item in
+
+          let imServer = NIMQChatServer()
+          if let dic = item as? [String: Any] {
+            if let sid = dic["serverId"] as? String, let id = UInt64(sid) {
+              imServer.serverId = id
+            }
+            if let name = dic["serverName"] as? String {
+              imServer.name = name
+            }
+            if let icon = dic["icon"] as? String {
+              imServer.icon = icon
+            }
+
+            if let custom = dic["custom"] as? String {
+              imServer.custom = custom
+            }
+          }
+          let server = QChatServer(server: imServer)
+          let squareServer = QChatSquareServer()
+          squareServer.server = server
+          servers.append(squareServer)
+        }
+        completion(servers, error as NSError?)
+      } else {
+        completion(servers, error as NSError?)
+      }
+    }
+  }
+
+  func didSelectSquareServer(server: QChatSquareServer) {
+    // 切换圈组社区列表所在tab
+    guard let server = server.server else {
+      return
+    }
+    selectedIndex = 1
+    qchatHomeController?.setCurrentServer(server: server)
   }
 }

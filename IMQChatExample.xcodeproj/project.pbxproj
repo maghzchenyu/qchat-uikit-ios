@@ -34,6 +34,7 @@
 		4B3B9BE8277AFEE70091A74E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B3B9BE7277AFEE70091A74E /* Assets.xcassets */; };
 		4B3B9BEB277AFEE70091A74E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B3B9BE9277AFEE70091A74E /* LaunchScreen.storyboard */; };
 		9EA2014127BE4B4800F8BBD0 /* AppKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2014027BE4B4800F8BBD0 /* AppKey.swift */; };
+		DD5361732B21902500B1AE57 /* DemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5361722B21902500B1AE57 /* DemoService.swift */; };
 		EE4474740237C218DA22FB33 /* Pods_IMQChatExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FB585FD10765A2EE6F5A32 /* Pods_IMQChatExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		9EA2014027BE4B4800F8BBD0 /* AppKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKey.swift; sourceTree = "<group>"; };
 		BFC3DBB21A107DF9593482F9 /* Pods_IMUIKitExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IMUIKitExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4ADFA629878A8400C61D55 /* IMUIKitExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IMUIKitExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		DD5361722B21902500B1AE57 /* DemoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoService.swift; sourceTree = "<group>"; };
 		FE26682F842DAFA0BCBAD5A4 /* Pods_IMUIKitExample_IMUIKitExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IMUIKitExample_IMUIKitExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -127,6 +129,7 @@
 				4B3B9BDE277AFEE50091A74E /* AppDelegate.swift */,
 				9EA2014027BE4B4800F8BBD0 /* AppKey.swift */,
 				4B3B9BE2277AFEE50091A74E /* ViewController.swift */,
+				DD5361722B21902500B1AE57 /* DemoService.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			files = (
 				39F793C827E20434007F63FF /* NENavigationController.swift in Sources */,
 				39C3E6A128F3B01600BB793A /* InputPersonInfoController.swift in Sources */,
+				DD5361732B21902500B1AE57 /* DemoService.swift in Sources */,
 				39C3E69E28F3B01600BB793A /* MeViewController.swift in Sources */,
 				39C3E6AA28F3B01600BB793A /* VersionCell.swift in Sources */,
 				39C3E69A28F3B01600BB793A /* MineSettingViewModel.swift in Sources */,

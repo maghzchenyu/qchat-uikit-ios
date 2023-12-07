@@ -5,9 +5,10 @@
 
 "open_push"="Please open the push in the setting";
 "message"="Message";
-"qchat"="Qchat";
+"qchat"="QChat";
 "contact"="Contact";
 "mine"="Me";
+"square"="Square";
 "logout"="Log out";
 "about_yunxin"="About CommsEase";
 "want_to_logout"="Sure to log out?";
@@ -24,7 +25,7 @@
 "change_sign_failure"="Set What's up Failed";
 "copy_success"="Copy ssuccessfully";
 "save"="Save";
-"birehday"="Birthday";
+"birthday"="Birthday";
 "phone"="Mobile";
 "email"="E-mail";
 "sign_remind"="sign remind";
@@ -50,7 +51,7 @@
 "confirm"="yes";
 "cancel"="cancel";
 "real_service"="Truly Stable IM Product";
-"appName"="CommsEase IM";
+"appName"="CommsEase QChat";
 "brand_des"="CommsEase";
 "register_login"="register/login";
 "email_login"="Email Login";

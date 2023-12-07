@@ -125,7 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
          */
         
         //呼叫组件初始化
-        //呼叫组件初始化
         let setupConfig = NESetupConfig(appkey: AppKey.appKey)
         NECallEngine.sharedInstance().setup(setupConfig)
         NECallEngine.sharedInstance().setTimeout(30)

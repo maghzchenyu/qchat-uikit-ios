@@ -11,7 +11,7 @@ target 'IMQChatExample' do
 
   #可选UI库
   pod 'NEContactUIKit', '9.4.9-alpha01'
-  pod 'NEQChatUIKit', '9.4.9-alpha01'
+#  pod 'NEQChatUIKit', '9.4.9-alpha01'
   pod 'NEConversationUIKit', '9.4.9-alpha01'
   pod 'NEChatUIKit', '9.4.9-alpha01'
   pod 'NETeamUIKit', '9.4.9-alpha01'
@@ -36,7 +36,7 @@ target 'IMQChatExample' do
   pod 'NERtcSDK', '5.5.2'
 
   # 如果需要查看UI部分源码请注释掉以上在线依赖，打开下面的本地依赖
-#   pod 'NEQChatUIKit', :path => 'NEQChatUIKit/NEQChatUIKit.podspec'
+   pod 'NEQChatUIKit', :path => 'NEQChatUIKit/NEQChatUIKit.podspec'
 
 
 end

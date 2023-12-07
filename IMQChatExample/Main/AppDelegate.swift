@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     func setupInit(){
         
-        let account = "chenyu3"
-        let token = "123"
+        let account = <#请输入账号#>
+        let token = <#请输入密码#>
         // init
         let option = NIMSDKOption()
         option.appKey = AppKey.appKey

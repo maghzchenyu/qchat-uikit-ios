@@ -26,6 +26,7 @@ target 'IMQChatExample' do
   pod 'NECommonKit', '9.6.4'
   pod 'NECoreIMKit', '9.6.5'
   pod 'NECoreKit', '9.6.5'
+  pod 'NECoreQChatKit', '9.6.5'
 
   #扩展库
   pod 'NEMapKit', '9.6.5'

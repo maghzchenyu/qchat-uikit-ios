@@ -10,33 +10,37 @@ target 'IMQChatExample' do
   pod 'YXLogin', '1.0.0'
 
   #可选UI库
-  pod 'NEContactUIKit', '9.4.9-alpha01'
-#  pod 'NEQChatUIKit', '9.4.9-alpha01'
-  pod 'NEConversationUIKit', '9.4.9-alpha01'
-  pod 'NEChatUIKit', '9.4.9-alpha01'
-  pod 'NETeamUIKit', '9.4.9-alpha01'
+  pod 'NEContactUIKit', '9.6.5'
+  pod 'NEQChatUIKit', '9.5.3'
+  pod 'NEConversationUIKit', '9.6.5'
+  pod 'NEChatUIKit', '9.6.5'
+  pod 'NETeamUIKit', '9.6.5'
 
 
   #可选Kit库（和UIKit对应）
-  pod 'NEQChatKit', '9.4.9-alpha01'
-  pod 'NEChatKit', '9.4.9-alpha01'
+  pod 'NEQChatKit', '9.5.3'
+  pod 'NEChatKit', '9.6.5'
 
   #基础kit库
-  pod 'NECommonUIKit', '9.4.9-alpha01'
-  pod 'NECommonKit', '9.4.9-alpha01'
-  pod 'NECoreIMKit', '9.4.9-alpha01'
-  pod 'NECoreKit', '9.4.9-alpha01'
+  pod 'NECommonUIKit', '9.6.5'
+  pod 'NECommonKit', '9.6.4'
+  pod 'NECoreIMKit', '9.6.5'
+  pod 'NECoreKit', '9.6.5'
 
   #扩展库
-  pod 'NEMapKit', '9.4.9-alpha01'
+  pod 'NEMapKit', '9.6.5'
 
-  #呼叫组件，音视频通话能力，需要开通 音视频2.0，可选，聊天一面会根据依赖初始化自动显示音视频通话入口
-  pod 'NERtcCallUIKit', '2.0.0-alpha01'
-  pod 'NERtcCallKit', '2.0.0-alpha01'
-  pod 'NERtcSDK', '5.5.2'
+  # 扩展库-呼叫组件
+    pod 'NERtcCallKit/NOS_Special', '2.2.0'
+    pod 'NERtcCallUIKit/NOS_Special', '2.2.0'
+
+  # 扩展库，依次为 RTC 音视频基础组件、RTC 音视频神经网络组件（使用背景虚化功能需要集成）、RTC 音视频背景分割组件（使用背景虚化功能需要集成）
+    pod 'NERtcSDK/RtcBasic', '5.5.2'
+    pod 'NERtcSDK/Nenn'
+    pod 'NERtcSDK/Segment'
 
   # 如果需要查看UI部分源码请注释掉以上在线依赖，打开下面的本地依赖
-   pod 'NEQChatUIKit', :path => 'NEQChatUIKit/NEQChatUIKit.podspec'
+#   pod 'NEQChatUIKit', :path => 'NEQChatUIKit/NEQChatUIKit.podspec'
 
 
 end
